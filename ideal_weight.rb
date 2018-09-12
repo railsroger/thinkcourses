@@ -13,4 +13,3 @@ if ideal_weight >= 0
 else
   puts "Ваш вес уже оптимальный, #{name}"	
 end
-
