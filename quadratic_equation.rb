@@ -10,13 +10,13 @@ puts 'Введите числовой коэффициент c:'
 c = gets.chomp.to_f
 
 d = b**2 - 4 * a * c
-y = Math.sqrt(d)
 
-if y > 0
+if d > 0
+  y = Math.sqrt(d)
   x1 = (-b + y) / (2 * a)
   x2 = (-b - y) / (2 * a)
   puts "Дискриминант #{y} и два корня: x1 = #{x1} и x2 = #{x2}"
-elsif y = 0
+elsif d = 0
   x = -b / 2 * a
   puts "Дискриминант #{y} и один корень x = #{x}" 
 else
