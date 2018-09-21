@@ -1,4 +1,5 @@
 class Station
+
   attr_accessor :trains_count
   attr_reader :name, :trains, :type
 
@@ -16,7 +17,12 @@ class Station
     @trains.delete(train)
   end
 
+  def show_train_list
+    @trains.each { |train| puts "Train - #{train.number} type - #{train.type} count - #{train.railway_carriage}" }
+  end
+
   def train_on_station(type)
-    @trains.each { |train| trains_count += 1 if train.type == type }
+    @trains.each { |train| trains_count += 1 if train.type.eql?(type) }
+    puts "Count trains to staion #{@name} type #{type} count #{trains_count}"
   end
 end

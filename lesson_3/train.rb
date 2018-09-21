@@ -1,7 +1,7 @@
 class Train
 
-  attr_accessor :speed
-  attr_reader :number, :type, :railway_carriage, :speed_now, :route, :current_station, :station_id
+  attr_accessor :speed, :route, :route_station
+  attr_reader :number, :type, :railway_carriage, :current_station, :station_id
 
   def initialize(number, type, railway_carriage)
     @number = number
@@ -31,6 +31,10 @@ class Train
     end
   end
 
+  def show_route_station
+    route.route_station
+  end
+
   def itinerary
     route.route_station
   end
@@ -51,5 +55,13 @@ class Train
       @station_id -= 1
       @current_station = route.route_station[station_id]
     end
+  end
+
+  def show_next_station
+    puts "Next station #{route.route_station[@station_id + 1].name}"
+  end
+
+  def show_prev_station
+    puts "Previous station #{route.route_station[@station_id - 1].name}"
   end
 end
