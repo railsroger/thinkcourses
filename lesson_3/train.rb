@@ -1,14 +1,13 @@
 class Train
 
   attr_accessor :speed, :route, :route_station
-  attr_reader :number, :type, :railway_carriage, :current_station, :station_id
+  attr_reader :number, :type, :railway_carriage, :current_station
 
   def initialize(number, type, railway_carriage)
     @number = number
     @type = type
     @railway_carriage = railway_carriage
     @speed = 0
-    @station_id = 0
   end
 
   def gain_speed
@@ -44,24 +43,24 @@ class Train
   end
 
   def moving_forward
-    if route.route_station.last != current_station && station_id <= route.route_station.length
-      @station_id += 1
-      @current_station = route.route_station[station_id]
+    if route.route_station.last != current_station && current_station <= route.route_station.length
+      @current_station += 1
+      @current_station = route.route_station[current_station]
     end
   end
 
   def moving_back
-    if route.route_station[0] != current_station && station_id > 0
-      @station_id -= 1
-      @current_station = route.route_station[station_id]
+    if route.route_station[0] != current_station && current_station > 0
+      @current_station -= 1
+      @current_station = route.route_station[current_station]
     end
   end
 
   def show_next_station
-    puts "Next station #{route.route_station[@station_id + 1].name}"
+    puts "Next station #{route.route_station[@current_station + 1].name}"
   end
 
   def show_prev_station
-    puts "Previous station #{route.route_station[@station_id - 1].name}"
+    puts "Previous station #{route.route_station[@current_station - 1].name}"
   end
 end

@@ -1,12 +1,11 @@
 class Station
 
-  attr_accessor :trains_count
-  attr_reader :name, :trains, :type
+  attr_reader :name, :trains, :type, :trains_count
 
   def initialize(name)
     @name = name
     @trains = []
-    @trains_count = 0
+    @trains_count = trains_count
   end
 
   def reception_of_trains(train)
@@ -22,7 +21,7 @@ class Station
   end
 
   def train_on_station(type)
-    @trains.each { |train| trains_count += 1 if train.type.eql?(type) }
+    @trains.count { |train| trains_count = train if train.type.eql?(type) }
     puts "Count trains to staion #{@name} type #{type} count #{trains_count}"
   end
 end
