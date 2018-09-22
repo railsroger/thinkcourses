@@ -20,6 +20,7 @@ class Station
   end
 
   def train_on_station(type)
-    @trains.count { |train| puts "Count trains to staion #{train.name} type #{train.type} count #{train}" if train.type == type }
+    train_count = @trains.count { |train| train.type == type }
+    puts "Count trains to staion #{train_count}"
   end
 end
