@@ -33,10 +33,9 @@ p station1.sending_a_train train3
 p train1.add_carriages("Cargo")
 p train2.add_carriages("Cargo")
 p train1.add_carriages("Passenger")
+p train1.add_carriages("Passenger")
 p train1.del_carriages("Cargo")
 
 p train1.train_type
 
 p station1.show_train_list
-
-p train1.itinerary

@@ -46,7 +46,7 @@ class Train
   end
 
   def moving_forward
-    if route.route_station.last != current_station && current_station <= route.route_station.length
+    if last_station? && current_station <= route.route_station.length
       @current_station += 1
       @current_station = route.route_station[current_station]
     end
@@ -66,4 +66,11 @@ class Train
   def show_prev_station
     puts "Previous station #{route.route_station[@current_station - 1].name}"
   end
+
+  private
+
+    def last_station?
+      route.route_station.last != current_station
+    end
+    
 end

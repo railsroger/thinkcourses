@@ -1,8 +1,12 @@
 class CargoTrain < Train
 
   def add_carriages(carriage)
-    if carriage.class == "Cargo"
-      super
-    end
+    count = 1
+    begin
+      if carriage.class == "Cargo"
+        super
+        count += 1
+      end
+    end while count <= 5
   end
 end
