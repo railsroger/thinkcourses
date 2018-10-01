@@ -53,7 +53,7 @@ class Train
   end
 
   def moving_back
-    if route.route_station[0] != current_station && current_station > 0
+    if first_station? && current_station > 0
       @current_station -= 1
       @current_station = route.route_station[current_station]
     end
@@ -72,5 +72,8 @@ class Train
     def last_station?
       route.route_station.last != current_station
     end
-    
+
+    def first_station?
+      route.route_station[0] != current_station
+    end
 end
