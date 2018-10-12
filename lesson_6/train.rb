@@ -6,7 +6,7 @@ class Train
   include CompanyName
   include InstanceCounter
 
-  FORMAT_NUMBER = /^[a-z]\d{3}-?[а-z]\d{2}$/i
+  FORMAT_NUMBER = /^([a-z]|\d){3}-?([a-z]{2}|\d{2})$/i
 
   @@trains = {}
 

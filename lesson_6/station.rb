@@ -44,7 +44,7 @@ class Station
   def validate!
     raise 'Station name can not be empty!' if name.empty?
     raise 'Station name must be longer than 3 characters' if name.length < 3
-    raise 'Station name must not be longer than 16 characters' if name.length > 12
+    raise 'Station name must not be longer than 12 characters' if name.length > 12
     raise 'Station name does not match the format' if name !~ STATION_FORMAT
     true
   end
