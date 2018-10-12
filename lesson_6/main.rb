@@ -10,14 +10,24 @@ require_relative 'passenger_carriages'
 require_relative 'passenger_train'
 
 @trains = []
-station1 = Station.new("New-York")
-station2 = Station.new("Boston")
-station3 = Station.new("Los-Angeles")
+@routes = []
+@stations = []
 
-route1 = Route.new("Minsk", "Moskow")
-route2 = Route.new("Oslo", "Bergen")
-route3 = Route.new("Chicago", "Miami")
+# create Route
+puts 'Enter first station: '
+begin
+  @first_station = gets.chomp
+  @stations << Station.new(@first_station)
+  puts 'Enter last station: '
+  @last_station = gets.chomp
+  @stations << Station.new(@last_station)
 
+  @routes << Route.new(@first_station, @last_station)
+rescue RuntimeError => e
+  puts "#{e}"
+  retry
+end
+puts "Route #{@routes}"
 # create Train
 begin
   puts 'Enter train number: '
@@ -30,10 +40,25 @@ rescue RuntimeError => e
 end
 puts @trains
 
+#Create Station
+begin
+  puts 'Enter name station: '
+  @station = gets.chomp
+    if @stations.include?(@station)
+      puts 'Station already exists'
+    else
+      @stations << Station.new(@station)
+    end
+rescue RuntimeError => e
+  puts "#{e}"
+  retry
+end
+puts "Station creation complete #{@stations.last.name}"
+
 p Station.all
 
-if Train.find(number) != nil
-  puts Train.find(number)
+if Train.find("12345") != nil
+  puts Train.find("12345")
 else
   puts 'Поезд с таким номером не найден!'
 end
