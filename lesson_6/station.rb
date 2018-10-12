@@ -1,6 +1,6 @@
 class Station
 
-  STATION_FORMAT = /^[а-яa-z0-9]$/i
+  STATION_FORMAT = /^[а-яa-z0-9]/i
 
   attr_reader :name, :trains, :type
   include InstanceCounter

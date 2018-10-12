@@ -86,10 +86,9 @@ class Train
     false
   end
 
-  private
+  protected
 
     def validate!
-      raise 'Train number can not be empty' if number.empty?
       raise 'Train number can not be nil' if number.nil?
       raise 'The number must be at least 6 characters' if number.length < 6
       raise 'The number should not be longer than 6 characters' if number.length > 6
