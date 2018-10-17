@@ -13,16 +13,16 @@ class Station
 
   def initialize(name)
     @name = name
-    @trains = []
     validate!
+    @trains = []
     @@all_stations << self
   end
 
   def show_train_list
-    @trains.each { |train| puts "Train - #{train.number} type - #{train.railway_carriages}" }
+    yield
   end
 
-  def all_train
+  def each_train
     self.trains.each { |train| yield(train) if block_given? }
   end
 

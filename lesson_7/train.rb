@@ -17,14 +17,14 @@ class Train
   def initialize(number, type)
     @number = number
     @type = type
+    validate!
     @railway_carriages = []
     @speed = 0
-    validate!
     @@trains[number] = self
   end
 
-  def show_carriage
-    self.railway_carriages.each { |carriage| yield(carriage) if block_given? }
+  def each_carriages
+    self.railway_carriages.each_with_index { |carriage, index| yield(carriage, index) if block_given? } 
   end
 
   def add_carriages(carriage)
@@ -91,6 +91,8 @@ class Train
       raise 'The number must be at least 6 characters' if number.length < 6
       raise 'The number should not be longer than 6 characters' if number.length > 6
       raise 'The train number does not match the format' if number !~ FORMAT_NUMBER
+      raise 'The train type can not be nil' if type.nil?
+      raise 'No type specified' if type != :cargo && type != :passenger
       true
     end
 

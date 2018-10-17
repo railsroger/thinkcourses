@@ -15,82 +15,82 @@ require_relative 'passenger_train'
 @stations = []
 
 # create Route
-puts 'Enter first station: '
-begin
-  @first_station = gets.chomp
-  @stations << Station.new(@first_station)
-  puts 'Enter last station: '
-  @last_station = gets.chomp
-  @stations << Station.new(@last_station)
+def create_route
+  puts 'Enter first station: '
+  begin
+    @first_station = gets.chomp
+    @stations << Station.new(@first_station)
+    puts 'Enter last station: '
+    @last_station = gets.chomp
+    @stations << Station.new(@last_station)
+    @routes << Route.new(@first_station, @last_station)
 
-  @routes << Route.new(@first_station, @last_station)
-rescue RuntimeError => e
-  puts "#{e}"
-  retry
+  rescue RuntimeError => e
+    puts "#{e}"
+    retry
+  end
+
+  puts "Route #{@routes}"
 end
-puts "Route #{@routes}"
 
 # create Train
-begin
-  puts 'Enter train number: '
-  number = gets.chomp
-  puts 'Enter train type: '
-  train_type = gets.chomp
+def create_train
+  begin
+    puts 'Enter train number: '
+    number = gets.chomp
+    puts 'Enter train type: '
+    train_type = gets.chomp
 
-  if train_type == :cargo
-    @trains << CargoTrain.new(number, train_type)
-  elsif train_type == :passenger
-    @trains << PassengerTrain.new(number, train_type)
-  else
-    @trains << Train.new(number, train_type)
+    if train_type == :cargo
+      @trains << CargoTrain.new(number, train_type)
+    elsif train_type == :passenger
+      @trains << PassengerTrain.new(number, train_type)
+    else
+      @trains << Train.new(number, train_type)
+    end
+
+  rescue RuntimeError => e
+    puts "#{e}"
+    retry
   end
 
-  # Add wagon
-  if train_type == :cargo
-    puts 'Enter volume: '
-    volume = gets.chomp
-    @trains.add_carriages(CargoCarriages.new(volume))
-    puts "Attached. Train #{@train.name} - #{@train.railway_carriages.size}"
-  elsif train_type == :passenger
-    puts 'Enter seats: '
-    seats = gets.chomp
-    @trains.add_carriages(PassengerCarriages.new(seats))
-    puts "Attached. Train #{@train.name} - #{@train.railway_carriages.size}"
-  else
-    puts 'No wagon!'
-  end
-
-rescue RuntimeError => e
-  puts "#{e}"
-  retry
+  puts "Trains #{@trains}"
 end
-puts "Trains #{@trains}"
-
 #Create Station
-begin
-  puts 'Enter name station: '
-  @station = gets.chomp
+def create_station
+  begin
+    puts 'Enter name station: '
+    @station = gets.chomp
     if @stations.include?(@station)
       puts 'Station already exists'
     else
       @stations << Station.new(@station)
     end
-rescue RuntimeError => e
-  puts "#{e}"
-  retry
-end
-puts "Station creation complete #{@stations.last.name}"
 
+  rescue RuntimeError => e
+    puts "#{e}"
+    retry
+  end
+
+  puts "Station creation complete #{@stations.last.name}"
+end
 # Blocks
-@stations.each do |station|
-    puts "Station name: #{station.name}"
-    station.all_train do |train|
-      puts "Train number: #{train.number}, train type: #{train.type}, train count: #{train.railway_carriages.size}"
-      train.show_carriage do |carriage|
-        puts "Number #{carriage.number}, type: #{carriage.type}, busy: #{carriage.busy_the_place}, free: #{carriage.free_place}" if type == :passenger
-        puts "Number #{carriage.number}, type: #{carriage.type}, busy: #{carriage.occupied_volume}, free: #{carriage.remaining_volume}" if type == :cargo
+def display_train_list
+  @stations.each do |station|
+      puts "Station name: #{station.name}"
+      station.each_train do |train|
+        puts "Train number: #{train.number}, train type: #{train.type}, train count: #{train.railway_carriages.size}"
       end
+  end
+end
+
+def display_railway_carriages
+  @trains.each do |train|
+    train.each_carriages do |carriage, index|
+      puts "Number #{index}, type: #{carriage.type}, busy: #{carriage.seats_count}, free: #{carriage.free_place}" if type == :passenger
+      puts "Number #{index}, type: #{carriage.type}, busy: #{carriage.count}, free: #{carriage.remaining_volume}" if type == :cargo
     end
+  end
 end
 
 p Station.all
