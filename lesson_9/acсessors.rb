@@ -5,7 +5,7 @@ module Acсessors
   end
 
   module ClassMethods
-    def attr_accessor_with_history(*arg)
+    def attr_accessor_with_history(*args)
       arg.each do |name|
         var_name = "@#{name}".to_sym
         define_method(name) { instance_variable_get(var_name) }

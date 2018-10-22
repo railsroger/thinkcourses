@@ -7,10 +7,9 @@ module Validation
   module ClassMethods
     attr_accessor :checks
 
-    def validate(*arg)
-      arg ||= []
-      self.checks ||= []
-      self.checks << arg
+    def validate(name, type, *args)
+      self.checks ||= {}
+      self.checks << args
     end
   end
 
@@ -18,8 +17,8 @@ module Validation
 
     def validate!
       self.class.checks.each do |value|
-        v = instance_variable_get("@#{value[0]}".to_sym)
-        send value[1].to_sym, v, value[2]
+        v = instance_variable_get("@#{value[:name]}".to_sym)
+        send(value[:type].to_sym, v, value[:args])
       end
     end
 
@@ -36,12 +35,12 @@ module Validation
         raise 'Error, value cannot be empty' if value.empty?
       end
 
-      def format(value, options)
-        raise 'Error, wrong format' if value !~ options
+      def format(value, format)
+        raise 'Error, wrong format' if value !~ format
       end
 
-      def type(value, options)
-        raise 'Error, wrong type' if value.is_a?(options)
+      def type(value, class_name)
+        raise 'Error, wrong type' if value.is_a?(class_name)
       end
   end
 end
