@@ -8,8 +8,8 @@ module Validation
     attr_accessor :checks
 
     def validate(name, type, *args)
-      self.checks ||= {}
-      self.checks << args
+      self.checks ||= []
+      self.checks << { name: name, type: type, args: args }
     end
   end
 
